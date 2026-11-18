@@ -1,0 +1,20 @@
+{
+  "name": "mand",
+  "displayName": "Mand",
+  "version": "1.0.0",
+  "description": "Short answers for your AI. Answer first, stop when done, plain words.",
+  "author": {
+    "name": "Incentro"
+  },
+  "homepage": "https://mand.incentro.dev",
+  "repository": "https://github.com/incentro-ic/mand",
+  "license": "MIT",
+  "keywords": [
+    "brevity",
+    "concise",
+    "tldr",
+    "writing",
+    "skill",
+    "agentic"
+  ]
+}

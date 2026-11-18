@@ -1,0 +1,14 @@
+{
+  "name": "mand",
+  "description": "Mand.: short, plain answers for Claude.",
+  "owner": {
+    "name": "Incentro"
+  },
+  "plugins": [
+    {
+      "name": "mand",
+      "source": "./",
+      "description": "Short answers for your AI. Answer first, stop when done, plain words."
+    }
+  ]
+}
