@@ -41,7 +41,9 @@ Mand follows the open [Agent Skills](https://agentskills.io) format, so the same
 
 ## Use
 
-End a question with "Mand." to get a short answer, or send just "Mand." after a long answer to get the TL;DR. Saying "be brief", "korter" or "tl;dr" works too. You can also call it directly: `/mand:mand` as a plugin, `/mand` as a skill.
+End a question with "Mand." to get a short answer to that question only. Send just "Mand." after a long answer to get the TL;DR of it. To get short answers for the rest of the conversation, type `/mand:mand` (plugin) or `/mand` (skill). Type it again to turn it off.
+
+"Mand" inside a sentence, like "ik zoek een picknickmand", doesn't trigger it.
 
 ## The rules
 
@@ -52,7 +54,7 @@ End a question with "Mand." to get a short answer, or send just "Mand." after a 
 5. Prose by default. Lists only for scanning or comparing.
 6. One example at most.
 7. Short question, short answer: "Yes, since Python 3.7."
-8. Never wrong for the sake of short. Caveats about safety, data or money stay.
+8. Never wrong for the sake of short. Caveats about safety, security, data, money and side effects stay.
 9. Code stays complete and runnable.
 10. Answers in your language.
 11. Ask for more detail and you get it. Then it's short again.
