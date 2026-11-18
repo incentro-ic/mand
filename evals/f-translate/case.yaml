@@ -1,0 +1,22 @@
+schema_version: "1.1"
+name: f-translate
+description: "\"mand\" inside a quoted sentence to translate."
+tags: [false-trigger, dutch]
+plugins: ["../.."]
+execution:
+  max_turns: 6
+  allowed_tools: [Skill]
+  prompt: "Translate to English: 'Zet de mand maar op tafel.'"
+graders:
+  - name: skill-not-fired
+    type: tool_used
+    tool: Skill
+    input_match: '"skill"\s*:\s*"(?:[\w-]+:)?mand"'
+    min: 0
+    max: 0
+    arm: both
+  - name: translation
+    type: llm
+    criteria: |
+      PASS if the reply translates the sentence correctly, for example "Just put the basket on the table."
+      FAIL if the translation is wrong or the reply mentions short answers or mand mode.

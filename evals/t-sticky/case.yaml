@@ -1,0 +1,20 @@
+schema_version: "1.1"
+name: t-sticky
+description: "Once /mand:mand is on, a plain question still gets a short answer."
+tags: [trigger, toggle]
+plugins: ["../.."]
+context:
+  history_file: history.jsonl
+execution:
+  max_turns: 6
+  allowed_tools: [Skill]
+  prompt: "What's the difference between TCP and UDP?"
+graders:
+  - name: at-most-60-words
+    type: regex
+    pattern: '^\s*(?:\S+\s+){0,59}\S*\s*$'
+  - name: short-correct
+    type: llm
+    criteria: |
+      PASS if the reply correctly says TCP is connection-based and reliable/ordered while UDP is connectionless and faster without delivery guarantees, in a few plain sentences.
+      FAIL if it is wrong or uses headers, tables or long lists.

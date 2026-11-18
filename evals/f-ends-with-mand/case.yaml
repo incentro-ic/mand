@@ -1,0 +1,22 @@
+schema_version: "1.1"
+name: f-ends-with-mand
+description: "Message ends with \"mand.\" but as part of the sentence."
+tags: [false-trigger, dutch]
+plugins: ["../.."]
+execution:
+  max_turns: 6
+  allowed_tools: [Skill]
+  prompt: "Ik ga verhuizen en zoek iets om mijn was in te bewaren. Wat is beter: een rieten of een plastic mand."
+graders:
+  - name: skill-not-fired
+    type: tool_used
+    tool: Skill
+    input_match: '"skill"\s*:\s*"(?:[\w-]+:)?mand"'
+    min: 0
+    max: 0
+    arm: both
+  - name: helpful-answer
+    type: llm
+    criteria: |
+      PASS if the reply compares wicker and plastic laundry baskets in Dutch.
+      FAIL if it treats "mand" as a request for a short answer, mentions mand mode or a TL;DR, or does not compare the two.

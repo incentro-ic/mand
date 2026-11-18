@@ -1,0 +1,19 @@
+schema_version: "1.1"
+name: t-code
+description: "Rule 9: code stays complete; prose around it is minimal."
+tags: [trigger, end, code]
+plugins: ["../.."]
+execution:
+  max_turns: 6
+  allowed_tools: [Skill]
+  prompt: "Write a Python function that checks whether a string is a palindrome, ignoring case and spaces. Mand."
+graders:
+  - name: skill-fired
+    type: tool_used
+    tool: Skill
+    input_match: '"skill"\s*:\s*"(?:[\w-]+:)?mand"'
+  - name: complete-code-little-prose
+    type: llm
+    criteria: |
+      PASS if the reply contains a complete, runnable Python function that correctly ignores case and spaces, and the prose outside the code block is at most two short sentences.
+      FAIL if the code is incomplete or wrong, or there are long explanations, multiple alternative versions, or a test section that was not asked for.

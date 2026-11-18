@@ -1,0 +1,22 @@
+schema_version: "1.1"
+name: f-be-brief
+description: "\"Be brief\" is no longer a trigger."
+tags: [false-trigger]
+plugins: ["../.."]
+execution:
+  max_turns: 6
+  allowed_tools: [Skill]
+  prompt: "Be brief: what is DNS?"
+graders:
+  - name: skill-not-fired
+    type: tool_used
+    tool: Skill
+    input_match: '"skill"\s*:\s*"(?:[\w-]+:)?mand"'
+    min: 0
+    max: 0
+    arm: both
+  - name: brief-correct
+    type: llm
+    criteria: |
+      PASS if the reply correctly explains that DNS translates domain names into IP addresses.
+      FAIL if it is wrong.

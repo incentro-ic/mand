@@ -1,0 +1,25 @@
+schema_version: "1.1"
+name: t-tldr
+description: "\"Mand.\" as the whole message after a long answer gives a TL;DR of that answer."
+tags: [trigger, tldr]
+plugins: ["../.."]
+context:
+  history_file: history.jsonl
+execution:
+  max_turns: 6
+  allowed_tools: [Skill]
+  prompt: "Mand."
+graders:
+  - name: skill-fired
+    type: tool_used
+    tool: Skill
+    input_match: '"skill"\s*:\s*"(?:[\w-]+:)?mand"'
+  - name: at-most-70-words
+    type: regex
+    pattern: '^\s*(?:\S+\s+){0,69}\S*\s*$'
+  - name: tldr-of-previous
+    type: llm
+    criteria: |
+      The previous assistant answer (which you cannot see) was a long explanation of how HTTPS protects a password during login: encryption in transit, certificate checks, and limits such as phishing.
+      PASS if the reply is a short summary (about one to four sentences) of how HTTPS protects a password. A one-line caveat, such as HTTPS not protecting against phishing, is fine.
+      FAIL if it asks what "Mand." means, talks about baskets, is a long multi-section answer, or is not about HTTPS.

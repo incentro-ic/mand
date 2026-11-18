@@ -1,0 +1,22 @@
+schema_version: "1.1"
+name: f-quoted-mand
+description: "\"Mand.\" quoted inside a question about the meme."
+tags: [false-trigger]
+plugins: ["../.."]
+execution:
+  max_turns: 6
+  allowed_tools: [Skill]
+  prompt: "My Dutch colleague sometimes ends a Slack message with \"Mand.\" What does that mean?"
+graders:
+  - name: skill-not-fired
+    type: tool_used
+    tool: Skill
+    input_match: '"skill"\s*:\s*"(?:[\w-]+:)?mand"'
+    min: 0
+    max: 0
+    arm: both
+  - name: answers-question
+    type: llm
+    criteria: |
+      PASS if the reply tries to explain what "Mand." means (for example that "mand" is Dutch for basket and/or that it is used as a meme or a way to end a discussion). Saying it is not sure is fine.
+      FAIL if it switches to a short-answer mode, talks about mand mode, or ignores the question.

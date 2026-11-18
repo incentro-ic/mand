@@ -1,0 +1,22 @@
+schema_version: "1.1"
+name: t-end-nl
+description: "\"Mand.\" at the end of a Dutch question; answer must be Dutch."
+tags: [trigger, end, dutch]
+plugins: ["../.."]
+execution:
+  max_turns: 6
+  allowed_tools: [Skill]
+  prompt: "Hoe zet ik een cel vast in een Excel-formule zodat hij niet verschuift als ik de formule doortrek? Mand."
+graders:
+  - name: skill-fired
+    type: tool_used
+    tool: Skill
+    input_match: '"skill"\s*:\s*"(?:[\w-]+:)?mand"'
+  - name: at-most-70-words
+    type: regex
+    pattern: '^\s*(?:\S+\s+){0,69}\S*\s*$'
+  - name: dutch-and-correct
+    type: llm
+    criteria: |
+      PASS if the reply is in Dutch and explains absolute references with dollar signs (such as $A$1). Mentioning the F4 shortcut is a plus but not required.
+      FAIL if it is not in Dutch, is wrong, or has headers, tables or a tips section.

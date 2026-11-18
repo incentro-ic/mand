@@ -1,0 +1,20 @@
+schema_version: "1.1"
+name: t-oneoff-not-sticky
+description: "After a \"...? Mand.\" question, the next question gets a normal answer."
+tags: [trigger, scope]
+plugins: ["../.."]
+context:
+  history_file: history.jsonl
+execution:
+  max_turns: 6
+  allowed_tools: [Skill]
+  prompt: "What are the differences between processes and threads? Give me the pros and cons of each."
+graders:
+  - name: at-least-80-words
+    type: regex
+    pattern: '(?:\S+\s+){80}'
+  - name: normal-answer
+    type: llm
+    criteria: |
+      PASS if the reply is a normal, complete answer that explains the difference and gives pros and cons for both processes and threads.
+      FAIL if it is a terse one-to-three sentence reply, or leaves out the pros and cons of either one.

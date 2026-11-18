@@ -1,0 +1,4 @@
+results/
+
+# Session files that eval runs write next to history.jsonl (contain the local system prompt and account info)
+/*/*-*-*-*-*.jsonl

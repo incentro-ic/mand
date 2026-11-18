@@ -1,0 +1,20 @@
+schema_version: "1.1"
+name: t-detail-request
+description: "Rule 11: explicit request for detail while mand is on gets detail."
+tags: [trigger, toggle]
+plugins: ["../.."]
+context:
+  history_file: history.jsonl
+execution:
+  max_turns: 6
+  allowed_tools: [Skill]
+  prompt: "Give me more detail: explain step by step how a lock prevents that, with a code example."
+graders:
+  - name: at-least-100-words
+    type: regex
+    pattern: '(?:\S+\s+){100}'
+  - name: detailed
+    type: llm
+    criteria: |
+      PASS if the reply explains step by step how a lock makes the read-modify-write atomic and includes a code example using a lock.
+      FAIL if it stays a short one-to-three sentence reply or has no code example.

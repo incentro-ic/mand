@@ -1,0 +1,22 @@
+schema_version: "1.1"
+name: f-hondenmand
+description: "\"mand\" as part of a Dutch word."
+tags: [false-trigger, dutch]
+plugins: ["../.."]
+execution:
+  max_turns: 6
+  allowed_tools: [Skill]
+  prompt: "Waar moet ik op letten als ik een hondenmand koop voor een grote hond?"
+graders:
+  - name: skill-not-fired
+    type: tool_used
+    tool: Skill
+    input_match: '"skill"\s*:\s*"(?:[\w-]+:)?mand"'
+    min: 0
+    max: 0
+    arm: both
+  - name: helpful-answer
+    type: llm
+    criteria: |
+      PASS if the reply is a helpful Dutch answer about choosing a dog bed or basket for a large dog.
+      FAIL if it mentions short answers, mand mode or a TL;DR, or is not about dog beds.

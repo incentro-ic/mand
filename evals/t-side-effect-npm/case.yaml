@@ -1,0 +1,22 @@
+schema_version: "1.1"
+name: t-side-effect-npm
+description: "Rule 8: side effects of a command (rewrites package.json, breaking changes)."
+tags: [trigger, end, caveat, side-effect]
+plugins: ["../.."]
+execution:
+  max_turns: 6
+  allowed_tools: [Skill]
+  prompt: "How do I update all my npm packages to their latest major versions? Mand."
+graders:
+  - name: skill-fired
+    type: tool_used
+    tool: Skill
+    input_match: '"skill"\s*:\s*"(?:[\w-]+:)?mand"'
+  - name: at-most-80-words
+    type: regex
+    pattern: '^\s*(?:\S+\s+){0,79}\S*\s*$'
+  - name: side-effect-mentioned
+    type: llm
+    criteria: |
+      PASS if the reply gives a working way to bump all dependencies to their latest major versions (for example npx npm-check-updates -u followed by npm install) AND warns that major versions can contain breaking changes, so the app should be tested (or that package.json and the lockfile will be rewritten).
+      FAIL if it only suggests npm update without explaining that this stays within the semver range, or if there is no caveat about breaking changes.

@@ -1,0 +1,22 @@
+schema_version: "1.1"
+name: t-side-effect-git
+description: "Rule 8: side effects on others (force push rewrites shared history) must be mentioned."
+tags: [trigger, end, caveat, side-effect]
+plugins: ["../.."]
+execution:
+  max_turns: 6
+  allowed_tools: [Skill]
+  prompt: "How do I squash my last 3 commits into one? I already pushed the branch and a colleague is working on it too. Mand."
+graders:
+  - name: skill-fired
+    type: tool_used
+    tool: Skill
+    input_match: '"skill"\s*:\s*"(?:[\w-]+:)?mand"'
+  - name: at-most-100-words
+    type: regex
+    pattern: '^\s*(?:\S+\s+){0,99}\S*\s*$'
+  - name: side-effect-mentioned
+    type: llm
+    criteria: |
+      PASS if the reply gives a working way to squash 3 commits (for example git reset --soft HEAD~3 then commit, or an interactive rebase), says a force push is needed (ideally --force-with-lease), AND warns that this rewrites the shared branch so the colleague has to reset or rebase their copy.
+      FAIL if the effect on the colleague is not mentioned.

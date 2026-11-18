@@ -1,0 +1,22 @@
+schema_version: "1.1"
+name: t-end-en
+description: "\"Mand.\" at the end of a short factual question."
+tags: [trigger, end]
+plugins: ["../.."]
+execution:
+  max_turns: 6
+  allowed_tools: [Skill]
+  prompt: "Is Python's dict ordered? Mand."
+graders:
+  - name: skill-fired
+    type: tool_used
+    tool: Skill
+    input_match: '"skill"\s*:\s*"(?:[\w-]+:)?mand"'
+  - name: at-most-25-words
+    type: regex
+    pattern: '^\s*(?:\S+\s+){0,24}\S*\s*$'
+  - name: correct-and-direct
+    type: llm
+    criteria: |
+      PASS if the reply says yes and that dicts keep insertion order since Python 3.7 (mentioning CPython 3.6 is fine), and the first sentence is the answer.
+      FAIL if it is wrong, starts with an intro or restates the question, or adds tips that were not asked for.

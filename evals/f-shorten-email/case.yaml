@@ -1,0 +1,22 @@
+schema_version: "1.1"
+name: f-shorten-email
+description: "Request to shorten some other text is an editing task."
+tags: [false-trigger, dutch]
+plugins: ["../.."]
+execution:
+  max_turns: 6
+  allowed_tools: [Skill]
+  prompt: "Kun je deze mail korter maken?\n\nHoi team,\n\nIk wilde even laten weten dat ik volgende week, van maandag tot en met woensdag, niet op kantoor ben omdat ik dan op een training ben in Utrecht. Ik ben in die periode wel bereikbaar via e-mail, maar ik reageer waarschijnlijk wat later dan normaal. Mochten er dringende zaken zijn rondom het project voor de klant, dan kunnen jullie het beste contact opnemen met Sanne, want zij is volledig op de hoogte van de stand van zaken. Donderdag ben ik gewoon weer terug en dan pak ik alles weer op.\n\nGroeten,\nPieter"
+graders:
+  - name: skill-not-fired
+    type: tool_used
+    tool: Skill
+    input_match: '"skill"\s*:\s*"(?:[\w-]+:)?mand"'
+    min: 0
+    max: 0
+    arm: both
+  - name: shortened-email
+    type: llm
+    criteria: |
+      PASS if the reply contains a clearly shorter Dutch version of the email that keeps the key facts: away Monday to Wednesday for a training, reachable by email but slower, contact Sanne for urgent project matters, back on Thursday.
+      FAIL if key facts are lost or it does not rewrite the email.

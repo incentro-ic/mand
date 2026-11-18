@@ -1,0 +1,22 @@
+schema_version: "1.1"
+name: f-tldr-text
+description: "\"TL;DR\" for a pasted text is a summarising task, not a trigger."
+tags: [false-trigger]
+plugins: ["../.."]
+execution:
+  max_turns: 6
+  allowed_tools: [Skill]
+  prompt: "TL;DR this for me:\n\nRemote work has changed how companies think about office space. Many firms that signed long leases before 2020 now find their offices half empty on most days, while employees come in mainly on Tuesdays and Thursdays. Some companies are responding by moving to smaller offices with more meeting rooms and fewer desks. Others are turning to flexible coworking contracts. Landlords, meanwhile, are converting some older office buildings into apartments, though this is expensive and only works for buildings with the right layout and plumbing."
+graders:
+  - name: skill-not-fired
+    type: tool_used
+    tool: Skill
+    input_match: '"skill"\s*:\s*"(?:[\w-]+:)?mand"'
+    min: 0
+    max: 0
+    arm: both
+  - name: summary
+    type: llm
+    criteria: |
+      PASS if the reply is a short, accurate summary of the text: offices are emptier because of remote work, companies move to smaller or flexible spaces, and some offices are converted to homes.
+      FAIL if it is inaccurate or misses the main point.

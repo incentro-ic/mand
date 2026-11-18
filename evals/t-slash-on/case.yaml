@@ -1,0 +1,18 @@
+schema_version: "1.1"
+name: t-slash-on
+description: "/mand:mand with a question turns mand on and answers short."
+tags: [trigger, toggle]
+plugins: ["../.."]
+execution:
+  max_turns: 6
+  allowed_tools: [Skill]
+  prompt: "/mand:mand What is a race condition?"
+graders:
+  - name: at-most-60-words
+    type: regex
+    pattern: '^\s*(?:\S+\s+){0,59}\S*\s*$'
+  - name: short-correct
+    type: llm
+    criteria: |
+      PASS if the reply correctly explains that a race condition is a bug where the outcome depends on the timing or order of concurrent operations, in plain words, in a few sentences.
+      FAIL if it is wrong, uses headers or long lists, or covers prevention techniques in depth.
