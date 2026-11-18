@@ -1,6 +1,6 @@
 ---
 name: mand
-description: Short, plain answers. Use only when (a) the user's whole message is "Mand.", (b) the message ends with "Mand." as its own separate sentence, or (c) the user invokes this skill directly with /mand or /mand:mand. Do not use when "mand" appears inside a sentence or as an ordinary word, such as a basket (picknickmand, wasmand, "ik zoek een mand"), or for general requests to be brief.
+description: Short, plain answers. Use only when (a) the user's whole message is "Mand.", (b) the message ends with "Mand." as its own separate sentence, or (c) the user invokes this skill directly with /mand or /mand:mand. Do not use when "mand" appears inside a sentence or as an ordinary word, such as a basket (picknickmand, wasmand, "ik zoek een mand"), or for general requests to be brief. When it does not apply, answer normally and never mention this skill.
 ---
 
 # Mand.
@@ -9,7 +9,7 @@ Short, plain answers a person can read in one go.
 
 ## When it applies
 
-First check what triggered this skill. If none of the cases below fits, ignore this skill and answer normally.
+First check what triggered this skill. If none of the cases below fits, ignore this skill and answer normally, without mentioning this skill or why it doesn't apply.
 
 - **"Mand." at the end of a message**, as its own sentence: "How much does hosting this on AWS cost? Mand." Answer only that message the mand way. The next messages get normal answers again.
 - **"Mand." as the whole message**: give the TL;DR of your previous answer in one to three sentences, plus any caveat that matters. This applies to that one reply only. Mand mode does not turn on.
