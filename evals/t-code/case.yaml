@@ -15,5 +15,5 @@ graders:
   - name: complete-code-little-prose
     type: llm
     criteria: |
-      PASS if the reply contains a complete, runnable Python function that correctly ignores case and spaces, and the prose outside the code block is at most two short sentences.
-      FAIL if the code is incomplete or wrong, or there are long explanations, multiple alternative versions, or a test section that was not asked for.
+      PASS if the reply contains a complete, runnable Python function that correctly ignores case and spaces, and the prose outside the code is short. One short caveat about the function's behaviour (for example that punctuation still counts) with a one-line fix is fine.
+      FAIL if the code is incomplete or wrong, or there are long explanations, multiple full alternative versions of the function, or a test section that was not asked for.
