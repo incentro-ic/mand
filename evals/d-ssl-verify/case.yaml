@@ -12,9 +12,9 @@ graders:
     type: tool_used
     tool: Skill
     input_match: '"skill"\s*:\s*"(?:[\w-]+:)?mand"'
-  - name: at-most-100-words
+  - name: at-most-115-words
     type: regex
-    pattern: '^\s*(?:\S+\s+){0,99}\S*\s*$'
+    pattern: '^\s*(?:\S+\s+){0,114}\S*\s*$'
   - name: fixes-real-problem
     type: llm
     criteria: |

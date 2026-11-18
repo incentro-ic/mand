@@ -96,7 +96,7 @@ Being direct (examples 9 to 12). Without Mand, Claude often reaches the same adv
 If `skills/mand/SKILL.md` changed, run the evals first:
 
 ```
-claude plugin eval . --trust-plugin --ablation none -j 6 --threshold 0.8
+claude plugin eval . --trust-plugin --ablation none --runs 5 -j 6 --threshold 0.8
 ```
 
 Exit code 0 means every case scored at least 0.8. Still check the report: any failed run in a false-trigger case (`f-*`) blocks the release. For a failing trigger case (`t-*`), look at why: one run going a few words over is noise, a wrong or missing caveat is not. See [evals/README.md](evals/README.md) for details. README or site changes don't need a run.

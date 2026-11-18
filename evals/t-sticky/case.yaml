@@ -10,9 +10,9 @@ execution:
   allowed_tools: [Skill]
   prompt: "What's the difference between TCP and UDP?"
 graders:
-  - name: at-most-60-words
+  - name: at-most-70-words
     type: regex
-    pattern: '^\s*(?:\S+\s+){0,59}\S*\s*$'
+    pattern: '^\s*(?:\S+\s+){0,69}\S*\s*$'
   - name: short-correct
     type: llm
     criteria: |

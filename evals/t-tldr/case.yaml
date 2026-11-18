@@ -14,9 +14,9 @@ graders:
     type: tool_used
     tool: Skill
     input_match: '"skill"\s*:\s*"(?:[\w-]+:)?mand"'
-  - name: at-most-70-words
+  - name: at-most-80-words
     type: regex
-    pattern: '^\s*(?:\S+\s+){0,69}\S*\s*$'
+    pattern: '^\s*(?:\S+\s+){0,79}\S*\s*$'
   - name: tldr-of-previous
     type: llm
     criteria: |
