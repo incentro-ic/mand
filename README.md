@@ -75,7 +75,15 @@ Word counts from the [examples](skills/mand/examples.md), same model, with and w
 
 ## Releasing
 
-Set `version` in `.claude-plugin/plugin.json`, commit, then push a matching tag (`v1.0.0` for `1.0.0`). The release workflow fails if they differ, otherwise it builds `mand.zip` and attaches it to a GitHub Release.
+If `skills/mand/SKILL.md` changed, run the evals first:
+
+```
+claude plugin eval . --trust-plugin --ablation none -j 6 --threshold 0.8
+```
+
+Exit code 0 means every case scored at least 0.8. Still check the report: any failed run in a false-trigger case (`f-*`) blocks the release. For a failing trigger case (`t-*`), look at why: one run going a few words over is noise, a wrong or missing caveat is not. See [evals/README.md](evals/README.md) for details. README or site changes don't need a run.
+
+Then set `version` in `.claude-plugin/plugin.json`, commit, and push a matching tag (`v1.0.0` for `1.0.0`). The release workflow fails if they differ, otherwise it builds `mand.zip` and attaches it to a GitHub Release.
 
 ## Licence
 
