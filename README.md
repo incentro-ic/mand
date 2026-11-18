@@ -1,10 +1,10 @@
 # Mand.
 
-Short answers for your AI.
+Short, straight answers for your AI.
 
-Mand is a Claude skill that makes answers brief and plain: the answer first, only what was asked, usually in one or two sentences. One mode, no settings. Named after the Dutch "Mand." meme, a basket that was never for sale.
+Mand is a Claude skill that makes answers brief, plain and direct: the answer first, only what was asked, usually in one or two sentences. It picks one option instead of listing five, and says so when your plan is a bad idea. One mode, no settings. Named after the Dutch "Mand." meme, a basket that was never for sale.
 
-Site: https://incentro-ic.github.io/mand/
+Site: https://mand.incentro.dev
 
 ## Install
 
@@ -41,7 +41,7 @@ Mand follows the open [Agent Skills](https://agentskills.io) format, so the same
 
 ## Use
 
-End a question with "Mand." to get a short answer to that question only. Send just "Mand." after a long answer to get the TL;DR of it. To get short answers for the rest of the conversation, type `/mand:mand` (plugin) or `/mand` (skill). Type it again to turn it off.
+End a question with "Mand." to get a short answer to that question only. Send just "Mand." after a long answer to get the TL;DR of it. To use Mand for the rest of the conversation, type `/mand:mand` (plugin) or `/mand` (skill). Type it again to turn it off.
 
 "Mand" inside a sentence, like "ik zoek een picknickmand", doesn't trigger it.
 
@@ -59,6 +59,15 @@ End a question with "Mand." to get a short answer to that question only. Send ju
 10. Answers in your language.
 11. Ask for more detail and you get it. Then it's short again.
 
+Be direct:
+
+12. Pick one. One recommendation, not a menu of options.
+13. Say it when the plan is a bad idea. The better way first, never the risky one.
+14. Fix wrong assumptions first. "Why is Python faster than C?" It isn't.
+15. Commit. Yes, no, or how sure. "Nobody knows" when nobody does.
+16. Blunt about the work, never about you. No sarcasm, no lecturing.
+17. No made-up problems. A good plan gets a plain yes.
+
 ## Does it work?
 
 Word counts from the [examples](skills/mand/examples.md), same model, with and without the skill:
@@ -72,6 +81,15 @@ Word counts from the [examples](skills/mand/examples.md), same model, with and w
 | What is a race condition? | 344 | 44 |
 | Delete all Docker data | 315 | 39 |
 | Excel cel vastzetten (Dutch) | 158 | 51 |
+
+Being direct (examples 9 to 12). Without Mand, Claude often reaches the same advice, but it does the risky thing first or buries the advice under a full setup:
+
+| Question | Without | Mand. |
+|---|---|---|
+| Turn off SSL verification in Python requests | 288 words, starts with `verify=False` | 108 words, starts with "Don't turn it off in production" and the proper fix |
+| PostgreSQL or MongoDB for a web shop? | 355 words, picks PostgreSQL, then when to use MongoDB and tips | 33 words, picks PostgreSQL with one reason |
+| node_modules in .gitignore, right? | 99 words, yes plus a checklist | 43 words, yes plus the two notes that matter |
+| Kubernetes for a blog with 50 visitors (Dutch) | 449 words, says it's overkill, then gives the full cluster setup | 89 words, "Doe het niet", then static hosting |
 
 ## Releasing
 

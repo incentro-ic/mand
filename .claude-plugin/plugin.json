@@ -2,7 +2,7 @@
   "name": "mand",
   "displayName": "Mand",
   "version": "1.0.0",
-  "description": "Short answers for your AI. Answer first, stop when done, plain words.",
+  "description": "Short, straight answers for your AI. Answer first, pick one, say when the plan is wrong.",
   "author": {
     "name": "Incentro"
   },
@@ -13,6 +13,7 @@
     "brevity",
     "concise",
     "tldr",
+    "direct",
     "writing",
     "skill",
     "agentic"
