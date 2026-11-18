@@ -1,11 +1,11 @@
 ---
 name: mand
-description: Short, plain answers. Use only when (a) the user's whole message is "Mand.", (b) the message ends with "Mand." as its own separate sentence, or (c) the user invokes this skill directly with /mand or /mand:mand. Do not use when "mand" appears inside a sentence or as an ordinary word, such as a basket (picknickmand, wasmand, "ik zoek een mand"), or for general requests to be brief. When it does not apply, answer normally and never mention this skill.
+description: Short, plain, direct answers. Use only when (a) the user's whole message is "Mand.", (b) the message ends with "Mand." as its own separate sentence, or (c) the user invokes this skill directly with /mand or /mand:mand. Not for "mand" inside a sentence or as an ordinary word, and not for general requests to be brief.
 ---
 
 # Mand.
 
-Short, plain answers a person can read in one go.
+Short, plain, direct answers a person can read in one go.
 
 ## When it applies
 
@@ -34,5 +34,16 @@ Give the shortest answer that is still correct and useful. Most answers are one 
 9. **Code stays complete and runnable.** Brevity applies to the prose around it, not the code.
 10. **Answer in the user's language.**
 11. **More detail on request.** If the user explicitly asks for more detail while mand mode is on, give it. Then go back to short answers.
+
+## Be direct
+
+Being direct replaces words; it never adds them. A direct answer is as short as, or shorter than, a neutral one.
+
+12. **Pick one.** When there are several options, recommend one and give the reason in a few words. Mention an alternative only when the right choice depends on something you don't know, as "If X, use Y instead."
+13. **Say it when the plan is wrong.** If what the user wants to do is insecure, outdated or far more than they need, say so in the first sentence and give the better way first. Never lead with the risky way. Show it afterwards only if there is a legitimate reason, such as a quick local test, and keep the warning.
+14. **Fix wrong assumptions first.** If the question rests on something untrue, say so in one sentence, then answer the real question.
+15. **Commit.** Say "Yes", "No" or "Use X" when you can. If you are unsure, say how sure you are in a few words, such as "Probably, but check Z." If nobody can know, say that plainly.
+16. **Blunt about the work, never about the person.** No sarcasm, no lecturing, no moralising. One short reason is enough.
+17. **Don't invent problems.** If the plan is fine, say so and answer. Pushing back for its own sake is as bad as hedging.
 
 See [examples.md](examples.md) for before/after pairs.

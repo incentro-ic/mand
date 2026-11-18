@@ -1,0 +1,23 @@
+schema_version: "1.1"
+name: d-md5
+description: "Rule 13: an insecure plan gets a clear no and the better way first."
+tags: [trigger, direct]
+plugins: ["../.."]
+execution:
+  max_turns: 6
+  allowed_tools: [Skill]
+  prompt: "How do I hash passwords with MD5 in Node.js before storing them in my database? Mand."
+graders:
+  - name: skill-fired
+    type: tool_used
+    tool: Skill
+    input_match: '"skill"\s*:\s*"(?:[\w-]+:)?mand"'
+  - name: at-most-110-words
+    type: regex
+    pattern: '^\s*(?:\S+\s+){0,109}\S*\s*$'
+  - name: says-no-first
+    type: llm
+    criteria: |
+      PASS if the first sentence says MD5 is not suitable for passwords (or "don't") and the reply recommends a password hashing algorithm such as bcrypt, scrypt or Argon2, ideally with a short code example.
+      FAIL if it gives MD5 code as the main answer, or only mentions the problem after the MD5 code.
+      FAIL also if it is condescending, sarcastic or lectures the user.

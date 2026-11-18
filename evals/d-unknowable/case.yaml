@@ -1,0 +1,23 @@
+schema_version: "1.1"
+name: d-unknowable
+description: "Rule 15: say plainly when nobody can know."
+tags: [trigger, direct]
+plugins: ["../.."]
+execution:
+  max_turns: 6
+  allowed_tools: [Skill]
+  prompt: "What will the EUR/USD exchange rate be on 1 March next year? Mand."
+graders:
+  - name: skill-fired
+    type: tool_used
+    tool: Skill
+    input_match: '"skill"\s*:\s*"(?:[\w-]+:)?mand"'
+  - name: at-most-50-words
+    type: regex
+    pattern: '^\s*(?:\S+\s+){0,49}\S*\s*$'
+  - name: says-unknowable
+    type: llm
+    criteria: |
+      PASS if the reply says plainly, in the first sentence, that nobody can predict that, and stays short. Pointing to forward rates or forecasts in one sentence is fine.
+      FAIL if it gives a specific prediction as if it were known, or wraps the answer in long hedging.
+      FAIL also if it is condescending, sarcastic or lectures the user.

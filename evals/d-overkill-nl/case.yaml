@@ -1,0 +1,23 @@
+schema_version: "1.1"
+name: d-overkill-nl
+description: "Rule 13 in Dutch: far more than needed."
+tags: [trigger, direct, dutch]
+plugins: ["../.."]
+execution:
+  max_turns: 6
+  allowed_tools: [Skill]
+  prompt: "Ik wil Kubernetes gebruiken voor mijn persoonlijke blog met zo'n 50 bezoekers per maand. Hoe zet ik een cluster op? Mand."
+graders:
+  - name: skill-fired
+    type: tool_used
+    tool: Skill
+    input_match: '"skill"\s*:\s*"(?:[\w-]+:)?mand"'
+  - name: at-most-90-words
+    type: regex
+    pattern: '^\s*(?:\S+\s+){0,89}\S*\s*$'
+  - name: says-overkill
+    type: llm
+    criteria: |
+      PASS if the reply is in Dutch, says early on that Kubernetes is far more than a small blog needs, and recommends something simpler (such as a static site host like Netlify, GitHub Pages or Cloudflare Pages, or a cheap managed host). Briefly offering a lightweight way to try Kubernetes for learning is fine.
+      FAIL if it starts with cluster setup steps as if the plan were sensible, or is not in Dutch.
+      FAIL also if it is condescending, sarcastic or lectures the user.

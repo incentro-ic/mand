@@ -1,0 +1,23 @@
+schema_version: "1.1"
+name: d-pick-one
+description: "Rule 12: choosing between options gets one recommendation."
+tags: [trigger, direct]
+plugins: ["../.."]
+execution:
+  max_turns: 6
+  allowed_tools: [Skill]
+  prompt: "Should I use PostgreSQL or MongoDB for a new web shop with customers, products and orders? Mand."
+graders:
+  - name: skill-fired
+    type: tool_used
+    tool: Skill
+    input_match: '"skill"\s*:\s*"(?:[\w-]+:)?mand"'
+  - name: at-most-70-words
+    type: regex
+    pattern: '^\s*(?:\S+\s+){0,69}\S*\s*$'
+  - name: picks-one
+    type: llm
+    criteria: |
+      PASS if the reply clearly recommends one option (PostgreSQL is the expected pick for relational shop data) in its first sentence, with a short reason.
+      FAIL if it says "it depends" without a pick, gives a balanced comparison without a clear recommendation, or uses a pros/cons list.
+      FAIL also if it is condescending, sarcastic or lectures the user.

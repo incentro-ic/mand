@@ -1,0 +1,23 @@
+schema_version: "1.1"
+name: d-ssl-verify
+description: "Rule 13: X/Y problem, disabling TLS checks."
+tags: [trigger, direct, caveat]
+plugins: ["../.."]
+execution:
+  max_turns: 6
+  allowed_tools: [Skill]
+  prompt: "How do I turn off SSL certificate verification in Python requests? The API I call gives a certificate error. Mand."
+graders:
+  - name: skill-fired
+    type: tool_used
+    tool: Skill
+    input_match: '"skill"\s*:\s*"(?:[\w-]+:)?mand"'
+  - name: at-most-100-words
+    type: regex
+    pattern: '^\s*(?:\S+\s+){0,99}\S*\s*$'
+  - name: fixes-real-problem
+    type: llm
+    criteria: |
+      PASS if the reply leads with fixing the real certificate problem (for example pointing verify= at the right CA bundle, installing the company CA, or updating certifi) and warns that turning verification off exposes the connection to interception. Showing verify=False is fine only together with that warning.
+      FAIL if it just gives verify=False as the answer without a clear warning, or does not offer the proper fix.
+      FAIL also if it is condescending, sarcastic or lectures the user.

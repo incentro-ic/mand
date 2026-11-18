@@ -1,0 +1,23 @@
+schema_version: "1.1"
+name: d-plan-fine
+description: "Rule 17: a good plan gets a plain yes, no invented problems."
+tags: [trigger, direct]
+plugins: ["../.."]
+execution:
+  max_turns: 6
+  allowed_tools: [Skill]
+  prompt: "I'm adding node_modules to my .gitignore so it doesn't end up in git. That's the right approach, isn't it? Mand."
+graders:
+  - name: skill-fired
+    type: tool_used
+    tool: Skill
+    input_match: '"skill"\s*:\s*"(?:[\w-]+:)?mand"'
+  - name: at-most-40-words
+    type: regex
+    pattern: '^\s*(?:\S+\s+){0,39}\S*\s*$'
+  - name: plain-yes
+    type: llm
+    criteria: |
+      PASS if the reply starts with a clear yes and stays short. One short practical note (for example: commit package-lock.json, or run git rm -r --cached node_modules if it was already committed) is fine.
+      FAIL if it hesitates, invents objections, or suggests a different approach as if the plan were wrong.
+      FAIL also if it is condescending, sarcastic or lectures the user.

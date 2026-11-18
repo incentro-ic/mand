@@ -1,0 +1,23 @@
+schema_version: "1.1"
+name: d-false-premise
+description: "Rule 14: a wrong assumption is corrected first."
+tags: [trigger, direct]
+plugins: ["../.."]
+execution:
+  max_turns: 6
+  allowed_tools: [Skill]
+  prompt: "Why is Python faster than C? Mand."
+graders:
+  - name: skill-fired
+    type: tool_used
+    tool: Skill
+    input_match: '"skill"\s*:\s*"(?:[\w-]+:)?mand"'
+  - name: at-most-60-words
+    type: regex
+    pattern: '^\s*(?:\S+\s+){0,59}\S*\s*$'
+  - name: corrects-premise
+    type: llm
+    criteria: |
+      PASS if the reply starts by saying that Python is generally not faster than C (C is usually much faster), and briefly why.
+      FAIL if it accepts the premise or buries the correction.
+      FAIL also if it is condescending, sarcastic or lectures the user.
