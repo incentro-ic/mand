@@ -19,4 +19,4 @@ graders:
     type: llm
     criteria: |
       PASS if the reply is a helpful Dutch answer about choosing a dog bed or basket for a large dog.
-      FAIL if it mentions short answers, mand mode or a TL;DR, or is not about dog beds.
+      FAIL if it talks about mand mode or the Mand skill, treats the question as a request for a short answer, or is not about dog beds. A normal closing summary such as "Kort gezegd: ..." is fine.
